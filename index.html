@@ -2077,7 +2077,302 @@
             .about-float-badge { display: none; }
             .cursor, .cursor-dot { display: none; }
         }
-    </style>
+   /* ===== PORTFOLIO MODAL ===== */
+.portfolio-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    padding: 20px;
+}
+
+.portfolio-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.portfolio-modal {
+    background: var(--dark-2);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(0, 102, 255, 0.1);
+}
+
+.portfolio-modal-overlay.active .portfolio-modal {
+    transform: translateY(0) scale(1);
+}
+
+.portfolio-modal::-webkit-scrollbar { width: 6px; }
+.portfolio-modal::-webkit-scrollbar-track { background: transparent; }
+.portfolio-modal::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+.portfolio-modal-banner {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    position: relative;
+    border-radius: 24px 24px 0 0;
+    overflow: hidden;
+}
+
+.portfolio-modal-banner::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(transparent, var(--dark-2));
+}
+
+.portfolio-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.portfolio-modal-close:hover {
+    background: var(--danger);
+    transform: rotate(90deg);
+}
+
+.portfolio-modal-body {
+    padding: 30px 36px 36px;
+}
+
+.portfolio-modal-tag {
+    display: inline-block;
+    background: rgba(0, 102, 255, 0.15);
+    color: var(--accent);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    border: 1px solid rgba(0, 102, 255, 0.2);
+}
+
+.portfolio-modal-body h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.portfolio-modal-desc {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.portfolio-modal-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.pm-stat {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+}
+
+.pm-stat-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.pm-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.portfolio-modal-details h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.portfolio-modal-details p {
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.pm-tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.pm-tech-tag {
+    background: var(--dark-3);
+    border: 1px solid var(--glass-border);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.portfolio-modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.portfolio-modal-actions .btn-primary,
+.portfolio-modal-actions .btn-secondary {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+}
+
+@media (max-width: 640px) {
+    .portfolio-modal-banner { height: 160px; font-size: 3rem; }
+    .portfolio-modal-body { padding: 20px; }
+    .portfolio-modal-body h2 { font-size: 1.4rem; }
+    .portfolio-modal-stats { grid-template-columns: 1fr; }
+    .portfolio-modal-actions { flex-direction: column; }
+}
+
+/* ===== FORM SUCCESS MODAL ===== */
+.form-success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.form-success-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.form-success-card {
+    background: var(--dark-2);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 50px 40px;
+    text-align: center;
+    max-width: 440px;
+    width: 100%;
+    margin: 20px;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+.form-success-overlay.active .form-success-card {
+    transform: translateY(0) scale(1);
+}
+
+.form-success-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(0, 204, 102, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 2.2rem;
+    color: #00CC66;
+    animation: successPulse 1s ease;
+}
+
+@keyframes successPulse {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.form-success-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+}
+
+.form-success-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.form-success-close {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gradient-1);
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 102, 255, 0.3);
+}
+
+.form-success-close:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 102, 255, 0.5);
+}
+ </style>
 </head>
 <body>
     <!-- Loader -->
@@ -2817,7 +3112,7 @@
                 </div>
 
                 <div class="contact-form reveal-right">
-                    <form id="contactForm">
+                    <form id="contactForm"> action="https://formspree.io/f/mvzwbnqa" method="POST">
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Adınız *</label>
@@ -2935,208 +3230,373 @@
     </button>
 
     <script>
-        // ===== LOADER =====
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 2200);
+        <script>
+    // ===== PORTFOLIO DATA =====
+    const portfolioData = [
+        {
+            tag: 'E-Ticaret',
+            title: 'TechStore - Online Mağaza',
+            shortDesc: '%420 satış artışı, 50K+ aylık ziyaretçi',
+            fullDesc: 'TechStore için kapsamlı bir dijital dönüşüm projesi gerçekleştirdik. E-ticaret sitesinin yeniden tasarımı, Google Ads ve Meta Ads kampanyaları, SEO optimizasyonu ve sosyal medya stratejisi ile birlikte satışlarında %420 artış sağladık.',
+            details: 'Proje kapsamında öncelikle kullanıcı deneyimi (UX) analizi yapıldı. Checkout süreçleri optimize edildi, ürün sayfaları yeniden tasarlandı. Google Shopping kampanyaları kuruldu ve remarketing stratejileri uygulandı. A/B testleri ile dönüşüm oranları sürekli iyileştirildi.',
+            stats: [
+                { value: '%420', label: 'Satış Artışı' },
+                { value: '50K+', label: 'Aylık Ziyaretçi' },
+                { value: '%3.8', label: 'Dönüşüm Oranı' }
+            ],
+            tech: ['Google Ads', 'Meta Ads', 'Shopify', 'Google Analytics', 'Hotjar', 'Klaviyo'],
+            gradient: 'linear-gradient(135deg, #0A1628, #0D2137, #0066FF30)',
+            icon: 'fas fa-rocket'
+        },
+        {
+            tag: 'Sağlık',
+            title: 'VitaLife - Marka Kimliği',
+            shortDesc: 'Komple rebranding & dijital strateji',
+            fullDesc: 'VitaLife sağlık markası için sıfırdan marka kimliği oluşturuldu. Logo tasarımı, kurumsal kimlik, web sitesi, sosyal medya şablonları ve dijital pazarlama stratejisi ile marka bilinirliğinde büyük artış sağlandı.',
+            details: 'Marka stratejisi belirlendikten sonra logo ve görsel kimlik tasarlandı. Responsive web sitesi geliştirildi. Instagram ve LinkedIn için içerik planı oluşturuldu. Influencer marketing kampanyaları yürütüldü. 6 ayda marka bilinirliği %300 arttırıldı.',
+            stats: [
+                { value: '%300', label: 'Bilinirlik Artışı' },
+                { value: '85K', label: 'Sosyal Takipçi' },
+                { value: '24', label: 'Tasarım Çıktısı' }
+            ],
+            tech: ['Figma', 'Adobe CC', 'WordPress', 'Instagram Ads', 'Influencer Marketing'],
+            gradient: 'linear-gradient(135deg, #1A0A28, #2D0D37, #6600FF30)',
+            icon: 'fas fa-heart'
+        },
+        {
+            tag: 'Restoran',
+            title: 'FoodHub - Sosyal Medya',
+            shortDesc: '200K+ takipçi, %12 engagement rate',
+            fullDesc: 'FoodHub restoran zinciri için sosyal medya yönetimi ve içerik üretimi projesi. Instagram, TikTok ve YouTube platformlarında organik büyüme stratejileri ile 200K+ takipçiye ulaşıldı.',
+            details: 'Profesyonel food photography ve video prodüksiyon ile içerik üretildi. TikTok\'ta viral olan videolar ile organik erişim patlaması yaşandı. UGC (User Generated Content) kampanyaları düzenlendi. Lokasyon bazlı reklam stratejileri ile mağaza trafiği artırıldı.',
+            stats: [
+                { value: '200K+', label: 'Toplam Takipçi' },
+                { value: '%12', label: 'Engagement Rate' },
+                { value: '15M+', label: 'Aylık Gösterim' }
+            ],
+            tech: ['Instagram', 'TikTok', 'YouTube', 'Canva', 'CapCut', 'Meta Business'],
+            gradient: 'linear-gradient(135deg, #0A2818, #0D3720, #00FF6630)',
+            icon: 'fas fa-utensils'
+        },
+        {
+            tag: 'Gayrimenkul',
+            title: 'PrimeEstate - Lead Gen',
+            shortDesc: 'Aylık 500+ nitelikli lead',
+            fullDesc: 'PrimeEstate gayrimenkul şirketi için lead generation odaklı dijital pazarlama stratejisi uygulandı. Google Ads, Meta Ads ve LinkedIn Ads kampanyaları ile aylık 500+ nitelikli potansiyel müşteri elde edildi.',
+            details: 'Landing page\'ler optimize edildi, A/B testleri yapıldı. CRM entegrasyonu ile lead takip sistemi kuruldu. Retargeting kampanyaları ile karar aşamasındaki müşterilere ulaşıldı. Email nurturing serileri ile lead\'ler satışa dönüştürüldü.',
+            stats: [
+                { value: '500+', label: 'Aylık Lead' },
+                { value: '₺45', label: 'Ortalama CPL' },
+                { value: '%28', label: 'Satışa Dönüşüm' }
+            ],
+            tech: ['Google Ads', 'Meta Ads', 'LinkedIn Ads', 'HubSpot', 'Unbounce', 'Zapier'],
+            gradient: 'linear-gradient(135deg, #28180A, #37200D, #FF660030)',
+            icon: 'fas fa-building'
+        },
+        {
+            tag: 'Eğitim',
+            title: 'EduTech - Google Ads',
+            shortDesc: 'CPA %60 düşüş, %280 ROI artışı',
+            fullDesc: 'EduTech online eğitim platformu için Google Ads kampanya yönetimi ve optimizasyonu. Akıllı teklif stratejileri ve gelişmiş hedefleme ile CPA %60 düşürülürken, toplam ROI %280 artırıldı.',
+            details: 'Mevcut kampanyalar audit edildikten sonra yapı yeniden kuruldu. Negatif anahtar kelime listesi oluşturuldu. Smart bidding stratejilerine geçiş yapıldı. Responsive search ads ile reklam metinleri optimize edildi. Performans Max kampanyaları ile yeni kitleler keşfedildi.',
+            stats: [
+                { value: '%60', label: 'CPA Düşüşü' },
+                { value: '%280', label: 'ROI Artışı' },
+                { value: '10K+', label: 'Yeni Kayıt' }
+            ],
+            tech: ['Google Ads', 'Google Analytics 4', 'Google Tag Manager', 'Data Studio', 'Optimize'],
+            gradient: 'linear-gradient(135deg, #0A1828, #0D2037, #0088FF30)',
+            icon: 'fas fa-graduation-cap'
+        }
+    ];
+
+    // ===== PORTFOLIO MODAL =====
+    function openPortfolioModal(index) {
+        const data = portfolioData[index];
+        const modal = document.getElementById('portfolioModal');
+
+        document.getElementById('pmBanner').style.background = data.gradient;
+        document.getElementById('pmBanner').innerHTML = `
+            <button class="portfolio-modal-close" onclick="closePortfolioModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <i class="${data.icon}" style="color: rgba(255,255,255,0.15); font-size: 5rem;"></i>
+        `;
+        document.getElementById('pmTag').textContent = data.tag;
+        document.getElementById('pmTitle').textContent = data.title;
+        document.getElementById('pmDesc').textContent = data.fullDesc;
+        document.getElementById('pmDetails').textContent = data.details;
+
+        document.getElementById('pmStats').innerHTML = data.stats.map(s => `
+            <div class="pm-stat">
+                <div class="pm-stat-value">${s.value}</div>
+                <div class="pm-stat-label">${s.label}</div>
+            </div>
+        `).join('');
+
+        document.getElementById('pmTech').innerHTML = data.tech.map(t => `
+            <span class="pm-tech-tag">${t}</span>
+        `).join('');
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePortfolioModal() {
+        document.getElementById('portfolioModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    document.getElementById('portfolioModal').addEventListener('click', function(e) {
+        if (e.target === this) closePortfolioModal();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closePortfolioModal();
+            closeFormSuccess();
+        }
+    });
+
+    // Attach click events to portfolio items
+    document.querySelectorAll('.portfolio-item').forEach((item, index) => {
+        item.addEventListener('click', () => openPortfolioModal(index));
+    });
+
+    // ===== FORM SUCCESS =====
+    function closeFormSuccess() {
+        document.getElementById('formSuccessModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // ===== LOADER =====
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.getElementById('loader').classList.add('hidden');
+        }, 2200);
+    });
+
+    // ===== CUSTOM CURSOR =====
+    const cursor = document.getElementById('cursor');
+    const cursorDot = document.getElementById('cursorDot');
+
+    if (window.innerWidth > 640) {
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+            cursorDot.style.left = e.clientX - 3 + 'px';
+            cursorDot.style.top = e.clientY - 3 + 'px';
         });
 
-        // ===== CUSTOM CURSOR =====
-        const cursor = document.getElementById('cursor');
-        const cursorDot = document.getElementById('cursorDot');
-
-        if (window.innerWidth > 640) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX - 10 + 'px';
-                cursor.style.top = e.clientY - 10 + 'px';
-                cursorDot.style.left = e.clientX - 3 + 'px';
-                cursorDot.style.top = e.clientY - 3 + 'px';
+        document.querySelectorAll('a, button, .service-card, .portfolio-item').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(2)';
+                cursor.style.opacity = '0.5';
             });
-
-            document.querySelectorAll('a, button, .service-card, .portfolio-item').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.style.transform = 'scale(2)';
-                    cursor.style.opacity = '0.5';
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursor.style.transform = 'scale(1)';
-                    cursor.style.opacity = '1';
-                });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.opacity = '1';
             });
+        });
+    }
+
+    // ===== PARTICLES =====
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.width = Math.random() * 4 + 2 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.animationDuration = Math.random() * 15 + 10 + 's';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.opacity = Math.random() * 0.3 + 0.1;
+        particlesContainer.appendChild(particle);
+    }
+
+    // ===== NAVBAR SCROLL =====
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
         }
 
-        // ===== PARTICLES =====
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 20; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.width = Math.random() * 4 + 2 + 'px';
-            particle.style.height = particle.style.width;
-            particle.style.animationDuration = Math.random() * 15 + 10 + 's';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.opacity = Math.random() * 0.3 + 0.1;
-            particlesContainer.appendChild(particle);
+        if (window.scrollY > 500) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
         }
+    });
 
-        // ===== NAVBAR SCROLL =====
-        const navbar = document.getElementById('navbar');
-        const backToTop = document.getElementById('backToTop');
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+    // ===== ACTIVE NAV LINK =====
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link:not(.nav-cta)');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            if (window.scrollY >= sectionTop) {
+                current = section.getAttribute('id');
             }
+        });
 
-            if (window.scrollY > 500) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
             }
         });
+    });
 
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    // ===== MOBILE MENU =====
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
         });
+    });
 
-        // ===== ACTIVE NAV LINK =====
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link:not(.nav-cta)');
+    // ===== SCROLL REVEAL =====
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                if (window.scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
-            });
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
         });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
 
-        // ===== MOBILE MENU =====
-        const hamburger = document.getElementById('hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
+    revealElements.forEach(el => revealObserver.observe(el));
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    // ===== COUNTER ANIMATION =====
+    const counters = document.querySelectorAll('.stat-number');
+    let counterStarted = false;
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !counterStarted) {
+                counterStarted = true;
+                counters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        current += step;
+                        if (current < target) {
+                            counter.textContent = Math.ceil(current) + (counter.closest('.stat-item').querySelector('.stat-label').textContent.includes('%') ? '%' : '+');
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target + (counter.closest('.stat-item').querySelector('.stat-label').textContent.includes('%') ? '%' : '+');
+                        }
+                    };
+                    updateCounter();
+                });
+            }
         });
+    }, { threshold: 0.3 });
 
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
+    document.querySelectorAll('.stats-section').forEach(el => counterObserver.observe(el));
 
-        // ===== SCROLL REVEAL =====
-        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    // ===== FORM SUBMISSION =====
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
+        const form = e.target;
+        const btn = form.querySelector('.form-submit');
+        const originalHTML = btn.innerHTML;
 
-        revealElements.forEach(el => revealObserver.observe(el));
+        // Get form data
+        const formData = {
+            name: form.querySelectorAll('input')[0].value,
+            surname: form.querySelectorAll('input')[1].value,
+            email: form.querySelectorAll('input')[2].value,
+            phone: form.querySelectorAll('input')[3].value,
+            service: form.querySelector('select').value,
+            message: form.querySelector('textarea').value,
+            date: new Date().toLocaleString('tr-TR')
+        };
 
-        // ===== COUNTER ANIMATION =====
-        const counters = document.querySelectorAll('.stat-number');
-        let counterStarted = false;
+        // Save to localStorage
+        let messages = JSON.parse(localStorage.getItem('ag_messages')) || [];
+        messages.unshift(formData);
+        localStorage.setItem('ag_messages', JSON.stringify(messages));
 
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !counterStarted) {
-                    counterStarted = true;
-                    counters.forEach(counter => {
-                        const target = parseInt(counter.getAttribute('data-target'));
-                        const duration = 2000;
-                        const step = target / (duration / 16);
-                        let current = 0;
+        // Show loading
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gönderiliyor...';
+        btn.disabled = true;
 
-                        const updateCounter = () => {
-                            current += step;
-                            if (current < target) {
-                                counter.textContent = Math.ceil(current) + (counter.closest('.stat-item').querySelector('.stat-label').textContent.includes('%') ? '%' : '+');
-                                requestAnimationFrame(updateCounter);
-                            } else {
-                                counter.textContent = target + (counter.closest('.stat-item').querySelector('.stat-label').textContent.includes('%') ? '%' : '+');
-                            }
-                        };
-                        updateCounter();
-                    });
-                }
-            });
-        }, { threshold: 0.3 });
+        // Simulate sending (replace with real service later)
+        setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+            form.reset();
 
-        document.querySelectorAll('.stats-section').forEach(el => counterObserver.observe(el));
+            // Show success modal
+            document.getElementById('formSuccessModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }, 1500);
+    });
 
-        // ===== FORM SUBMISSION =====
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
+    // ===== SMOOTH SCROLL FOR ALL ANCHOR LINKS =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            const btn = e.target.querySelector('.form-submit');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i> Mesajınız Gönderildi!';
-            btn.style.background = 'linear-gradient(135deg, #00CC66, #00FF88)';
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
 
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.style.background = '';
-                e.target.reset();
-            }, 3000);
+    // ===== TILT EFFECT ON HERO CARD =====
+    const heroCard = document.querySelector('.hero-card-main');
+    if (heroCard && window.innerWidth > 968) {
+        heroCard.addEventListener('mousemove', (e) => {
+            const rect = heroCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            heroCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
 
-        // ===== SMOOTH SCROLL FOR ALL ANCHOR LINKS =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
+        heroCard.addEventListener('mouseleave', () => {
+            heroCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            heroCard.style.transition = 'transform 0.5s ease';
         });
 
-        // ===== TILT EFFECT ON HERO CARD =====
-        const heroCard = document.querySelector('.hero-card-main');
-        if (heroCard && window.innerWidth > 968) {
-            heroCard.addEventListener('mousemove', (e) => {
-                const rect = heroCard.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (y - centerY) / 20;
-                const rotateY = (centerX - x) / 20;
-                heroCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
+        heroCard.addEventListener('mouseenter', () => {
+            heroCard.style.transition = 'none';
+        });
+    }
 
-            heroCard.addEventListener('mouseleave', () => {
-                heroCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-                heroCard.style.transition = 'transform 0.5s ease';
-            });
-
-            heroCard.addEventListener('mouseenter', () => {
-                heroCard.style.transition = 'none';
-            });
-        }
-    </script>
+</script>
 </body>
 </html>
